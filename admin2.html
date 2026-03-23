@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="SHORTCUT ICON" href="./img/favaicon.ico">
+    <title>Quản lí NAK SHOP</title>
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admins.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./img/fontawesome-free-5.12.1-web/css/all.min.css">
+    <script src="./src/validator.js"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bxl-c-plus-plus'></i>
+            <span class="sign"><img src="./img/logo/gumac1.png" alt="logo" width="80" height="75"></span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="./admin.html" style="text-decoration: none;color: white;">
+                    <i class="fas fa-archive" style="margin-right:3px;margin-left: 2px;"></i>
+                    Quản lí sản phẩm
+                </a>
+            </li>
+            <li>
+                <a href="./admin1.html" style="text-decoration: none;color: white;">
+                    <i class="fas fa-shopping-cart" style="margin-right:3px;margin-left: 2px;"></i>
+                    Quản lí đơn hàng
+                </a>
+            </li>
+            <li>
+                <a href="./admin2.html" style="text-decoration: none;color: white;">
+                    <i class="fas fa-users" style="margin-right:3px;margin-left: 2px;"></i>
+                    Quản lí người dùng
+                </a>
+            </li>
+            <li>
+                <a href="./admin3.html" style="text-decoration: none;color: white;">
+                    <i class="far fa-chart-bar" style="margin-right:3px;margin-left: 2px;"></i>
+                    Thống kê đơn hàng
+                </a>
+            </li>
+            <li>
+                <a href="./index.html" class="nav-links__logOut" style="text-decoration: none;color: white;">
+                    <i class="fas fa-power-off" style="margin-right:3px;margin-left: 2px;"></i>
+                    Đăng xuất
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i class='bx bx-menu sidebarBtn'></i>
+                <span class="dashboard">Quản lí người dùng</span>
+            </div>
+
+        </nav>
+        <div class="home-content">
+            <!-- Quản lí người dùng -->
+            <div class="content__btn">
+                <a href="#" class="content__btn--adduser">Thêm người dùng</a>
+            </div>
+            <div class="user-boxes">
+                <div class="recent-user box">
+                    <div class="user-details"></div>
+                </div>
+            </div>
+        </div>
+        <form class="modal__addUser">
+            <div class="modal__addUser-overlay"></div>
+            <div class="modal__addUser-body">
+                <div class="form-addUser__header">
+                    <span style="font-size: 30px;margin-left:15px ;color:white;font-weight: 100;">Người dùng</span>
+                    <button type="button" class="form-addUser__header--close" style="color:white"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="warning"></div>
+                <div class="form-addUser__content">
+                    <div class="submit-field">
+                        <input class="submit-field__input"
+                               type="email"
+                               name="email"
+                               placeholder="Example@email.com"
+                               value="" />
+                        <span class="message-error"></span>
+                    </div>
+                    <div class="submit-field">
+                        <input class="submit-field__input"
+                               type="password"
+                               name="password"
+                               placeholder="Nhập mật khẩu từ 6 kí tự trở lên"
+                               value="" />
+                        <span class="message-error"></span>
+                    </div>
+                    <div class="submit-field">
+                        <input class="submit-field__input"
+                               type="number"
+                               name="phone"
+                               placeholder="0123456789"
+                               value="" />
+                        <span class="message-error"></span>
+                    </div>
+                    <div class="submit-field">
+                        <input class="submit-field__input"
+                               type="text"
+                               name="location"
+                               placeholder="Ninh Bình"
+                               value="" />
+                        <span class="message-error"></span>
+                    </div>
+                </div>
+                <div class="form-addUser__btnSave">
+                    <button id="myButtosn" type="submit" class="submit-save" onclick="runCheckRegister()">Lưu</button>
+                </div>
+            </div>
+        </form>
+
+        <script>
+            let user = JSON.parse(localStorage.getItem('myUsers'))
+            let loginUser = JSON.parse(localStorage.getItem('loginUser'))
+
+            let emailS = '';
+            let phoneS = ``;
+            let index = 1;
+            let idHTML = ``;
+            let nameHTML = ``
+            let passHTML = ``
+            let phoneHTML = ``
+            let locationHTML = ``
+            let statusHTML = ``
+            let buttonsHTML = ``
+            let buttonHTML = ``
+            for (let item of user) {
+                idHTML += `<li>${index++}</li>`
+                nameHTML += `<li>${item.email}</li>`
+                passHTML += `<li>${item.password}</li>`
+                phoneHTML += `<li>${item.phone}</li>`
+                locationHTML += `<li>${item.location}</li>`
+                statusHTML += `<li>${item.status}</li>`
+                buttonsHTML += `<li><button id=buts>Chỉnh sửa thông tin</button></li>`
+                buttonHTML += `<li><button id=but>Khóa</button></li>`
+            }
+            let content = document.querySelector('.user-details');
+            content.innerHTML = `<ul class="details">
+                                                                             <li class="topic">ID</li>
+                                                                             ${idHTML}
+                                                                             </ul>
+                                                                             <ul class="details">
+                                                                                <li class="topic">Địa chỉ email</li>
+                                                                                ${nameHTML}
+                                                                             </ul>
+                                                                             <ul class="details">
+                                                                                <li class="topic">Mật khẩu</li>
+                                                                                ${passHTML}
+                                                                             </ul>
+                                                                             <ul class="details">
+                                                                                <li class="topic">Số điện thoại</li>
+                                                                                ${phoneHTML}
+                                                                             </ul>
+                                                                             <ul class="details">
+                                                                                <li class="topic">Địa chỉ</li>
+                                                                                ${locationHTML}
+                                                                             </ul>
+                                                                             <ul class="details">
+                                                                                <li class="topic">Trạng thái</li>
+                                                                                ${statusHTML}
+                                                                             </ul>
+                                                                             <ul class="details">
+                                                                                 <li class="topic">Quản lí thông tin</li>
+                                                                                ${buttonsHTML}
+                                                                             </ul>
+                                                                             <ul class="details">
+                                                                                 <li class="topic">Khóa người dùng</li>
+                                                                                ${buttonHTML}
+                                                                             </ul>`
+            const buttons = document.querySelectorAll('button');
+
+            buttons.forEach(function (button, index) {
+                button.addEventListener('click', function () {
+                    const listItem = button.parentNode.previousElementSibling.children[index];
+                    let users = JSON.parse(localStorage.getItem('myUsers'));
+                    const position = index + 1;
+                    // Lấy dữ liệu từ localStorage (nếu có) và chuyển đổi thành mảng users
+                    if (position <= users.length) {
+                        for (let i = 0; i < users.length; i++) {
+                            if (i === index) {
+                                var forms = document.getElementsByClassName("modal__addUser");
+                                for (var j = 0; j < forms.length; j++) {
+                                    forms[j].style.display = "block";
+                                    var form = document.forms[j];
+                                    for (var j = 0; j < forms.length; j++) {
+                                        var inputs = forms[j].getElementsByTagName("input");
+                                        inputs[0].value = users[i].email;
+                                        inputs[1].value = users[i].password;
+                                        inputs[2].value = users[i].phone;
+                                        inputs[3].value = users[i].location;
+                                        emailS = users[i].email;
+                                        phoneS = users[i].phone;
+                                    }
+                                    var element = form.elements[5];
+                                    element.onclick = runCheckRegisters;
+                                }
+                            }
+                        }
+                    }
+                    else if (position > users.length) {
+                        da = index - users.length;
+                        for (let i = 0; i < users.length; i++) {
+                            if (i === da) {
+                                if (users[i].status == 'none') {
+                                    // Thay đổi thông tin của người dùng
+                                    users[i].status = 'lock';
+                                    // Lưu lại mảng users đã được cập nhật vào localStorage
+                                    localStorage.setItem('myUsers', JSON.stringify(users));
+                                    location.reload();
+                                    break; // Kết thúc vòng lặp nếu người dùng đã được tìm thấy
+                                }
+                                if (users[i].status == 'lock') {
+                                    // Thay đổi thông tin của người dùng
+                                    users[i].status = 'none';
+                                    // Lưu lại mảng users đã được cập nhật vào localStorage
+                                    localStorage.setItem('myUsers', JSON.stringify(users));
+                                    location.reload();
+                                    break; // Kết thúc vòng lặp nếu người dùng đã được tìm thấy
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+            var showFormLinks = document.getElementsByClassName("content__btn--adduser");
+            for (var i = 0; i < showFormLinks.length; i++) {
+                showFormLinks[i].onclick = function () {
+                    var forms = document.getElementsByClassName("modal__addUser");
+                    for (var j = 0; j < forms.length; j++) {
+                        forms[j].style.display = "block";
+                        resetInput();
+                    }
+                    return false; // Ngăn chặn liên kết chuyển hướng đến "#"
+                };
+            }
+            var showFormLinks = document.getElementsByClassName("form-addUser__header--close");
+            for (var i = 0; i < showFormLinks.length; i++) {
+                showFormLinks[i].onclick = function () {
+                    var forms = document.getElementsByClassName("modal__addUser");
+                    for (var j = 0; j < forms.length; j++) {
+                        forms[j].style.display = "none";
+                    }
+                    return false; // Ngăn chặn liên kết chuyển hướng đến "#"
+                };
+            }
+        </script>
+        <script>
+            const $ = document.querySelector.bind(document);
+            const $$ = document.querySelectorAll.bind(document);
+            let users = localStorage.getItem('myUsers') ? JSON.parse(localStorage.getItem('myUsers')) : [{
+                email: "congty@gmail.com",
+                password: "12345678",
+                phone: "0142125671",
+                typeUser: "admin",
+                location: "Ninh Bình",
+                status: "none",
+            }
+            ];
+            function runCheckRegisters() {
+                Validator({
+                    form: '.modal__addUser',
+                    formGroupSelector: '.submit-field',
+                    errorSelector: '.message-error',
+                    rules: [
+                        Validator.isRequired(
+                            'input[name="email"]',
+                            "Vui lòng nhập email"
+                        ),
+                        Validator.isEmail('input[name="email"]'),
+                        Validator.isRequired(
+                            'input[name="password"]',
+                            "Vui lòng nhập mật khẩu"
+                        ),
+                        Validator.minLength('input[name="password"]', 6),
+                        Validator.isRequired(
+                            'input[name="phone"]',
+                            "Vui lòng nhập số điện thoại"
+                        ),
+                        Validator.isCorrectPhone('input[name="phone"]'),
+                        Validator.isRequired(
+                            'input[name="location"]',
+                            "Vui lòng nhập địa chỉ"
+                        ),
+                    ],
+                    onSubmit: function (data) {
+                        checkRegisters(data);
+                    },
+                })
+
+                function checkRegisters(data) {
+                    let isFound = false;
+                    let errorMessage = ``
+                    for (let user of users) {
+                        if (data.email === user.email || data.phone === user.phone) {
+                            isFound = false;
+                        }
+                        else if (data.email === user.email) {
+                            isFound = true;
+                            errorMessage = `Email này đã được đăng ký. `
+                        }
+                        else if (data.phone === user.phone) {
+                            isFound = true;
+                            errorMessage = `Số điện thoại này đã được đăng ký`
+                        }
+                        if (isFound) {
+                            $('.warning').innerHTML = `<div class="block-warning">
+                                            <i class="fas fa-exclamation-circle"></i> ${errorMessage}</div>`
+                            break;
+                        }
+                    }
+                    if (!isFound) {
+                        updateUsersd(data)
+                        window.location = "./admin2.html"
+                    }
+                }
+
+                function updateUsersd(data) {
+                    let users = JSON.parse(localStorage.getItem('myUsers'));
+                    for (let i = 0; i < users.length; i++) {
+                        if (users[i].email === emailS) {
+                            users[i].email = data.email;
+                            users[i].password = data.password;
+                            users[i].phone = data.phone;
+                            users[i].location = data.location;
+                            localStorage.setItem('myUsers', JSON.stringify(users));
+                        }
+
+                    }
+                }
+
+                enableSubmit();
+            }
+            function runCheckRegister() {
+                Validator({
+                    form: '.modal__addUser',
+                    formGroupSelector: '.submit-field',
+                    errorSelector: '.message-error',
+                    rules: [
+                        Validator.isRequired(
+                            'input[name="email"]',
+                            "Vui lòng nhập email"
+                        ),
+                        Validator.isEmail('input[name="email"]'),
+                        Validator.isRequired(
+                            'input[name="password"]',
+                            "Vui lòng nhập mật khẩu"
+                        ),
+                        Validator.minLength('input[name="password"]', 6),
+                        Validator.isRequired(
+                            'input[name="phone"]',
+                            "Vui lòng nhập số điện thoại"
+                        ),
+                        Validator.isCorrectPhone('input[name="phone"]'),
+                        Validator.isRequired(
+                            'input[name="location"]',
+                            "Vui lòng nhập địa chỉ"
+                        ),
+                    ],
+                    onSubmit: function (data) {
+                        checkRegister(data);
+                    },
+                })
+
+                function checkRegister(data) {
+                    let isFound = false;
+                    let errorMessage = ``
+                    for (let user of users) {
+                        if (data.email === user.email && data.phone === user.phone) {
+                            isFound = true;
+                            errorMessage = `Email và số điện thoại này đã được đăng ký`
+                        }
+                        else if (data.email === user.email) {
+                            isFound = true;
+                            errorMessage = `Email này đã được đăng ký. `
+                        }
+                        else if (data.phone === user.phone) {
+                            isFound = true;
+                            errorMessage = `Số điện thoại này đã được đăng ký`
+                        }
+
+                        if (isFound) {
+                            $('.warning').innerHTML = `<div class="block-warning">
+                                            <i class="fas fa-exclamation-circle"></i> ${errorMessage}</div>`
+                            break;
+                        }
+                    }
+                    if (!isFound) {
+                        updateUsers(data)
+                        window.location = "./admin2.html"
+                    }
+                }
+
+                function updateUsers(data) {
+                    users.push({
+                        email: data.email,
+                        password: data.password,
+                        phone: data.phone,
+                        location: data.location,
+                        typeUser: "member",
+                        status: "none"
+                    });
+                    loginUser = users[users.length - 1];
+                    alert("Người dùng đã được thêm thành công!");
+                    updateLocalStorage();
+                }
+
+                enableSubmit();
+            }
+            function resetInput() {
+                let inputs = $$('input')
+                for (let input of inputs) {
+                    input.value = '';
+                }
+            }
+            function updateLocalStorage() {
+                let usersData = JSON.stringify(users);
+                let loginUserData = JSON.stringify(loginUser);
+
+                localStorage.setItem('myUsers', usersData);
+                localStorage.setItem('loginUser', loginUserData)
+            }
+        </script>
+        <script src="./src/script.js"></script>
+    </section>
+
+</body>
+
+</html>

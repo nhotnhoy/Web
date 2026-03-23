@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap"/>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ceviche+One&family=Quicksand&display=swap"/>
+      <link rel="stylesheet" href="./css/Style.css" />
+      <link rel="stylesheet" href="./css/responsive.css" />
+      <link rel="stylesheet" href="./img/fontawesome-free-5.12.1-web/css/all.css"/>
+      <script src="./src/validator.js"></script>
+      <link rel="SHORTCUT ICON" href="./img/favaicon.ico" />
+      <title>NAK Shop</title>
+      <link rel="stylesheet" href="./css/order.css" />
+   </head>
+   <body>
+       <header>
+           <div class="nav">
+               <ul class="nav-list">
+                   <li><a href="./index.html">Trang chủ</a></li>
+                   <i class="fas fa-chevron-down"></i>
+                   <li><a href="#">Tin Tức</a></li>
+                   <li><a href="#footer">Liên Hệ</a></li>
+               </ul>
+               <div class="login-register">
+                   <a href="#" class="js-login">Đăng Nhập</a>|<a href="#"
+                                                                 class="js-register">Đăng Ký</a>
+               </div>
+           </div>
+           <div class="sub-header">
+               <a href="">
+                   <img src="./img/logotrang1.png"
+                        alt="logotrang"
+                        style="width: 60px; height: 60px" />
+               </a>
+               <span class="sign">Nak shop</span>
+               <i class="slogan">Mua sắm thả ga! Săn voucher cực khủng trong hôm nay!</i>
+           </div>
+           <div class="nav-content">
+               <ul class="nav-content-list">
+                   <li><a href="#" typeproduct="femaleCloth">Quần áo nữ</a></li>
+                   <li><a href="#" typeproduct="maleCloth">Quần áo nam</a></li>
+                   <li><a href="#" typeproduct="Giay">Giày nam</a></li>
+                   <li><a href="#" typeproduct="Giaynu">Giày nữ</a></li>
+                   <li><a href="#" typeproduct="phukien">Phụ kiện</a></li>
+               </ul>
+               <div class="search">
+                   <input class="search-ip" type="text" placeholder="Bạn muốn mua gì ?" />
+                   <a href="#"><i class="fas fa-search"></i></a>
+               </div>
+           </div>
+       </header>
+       <div class="content">
+           <div class="content-container">
+               <div class="content-container-header">
+                   <h3>Đơn hàng</h3>
+                   <ul></ul>
+                   <br />
+                   <h4 class="total-price">Thành tiền: 900 000 đ</h4>
+               </div>
+               <div class="content-container-body">
+                   <h3>Thông tin giao hàng</h3>
+                   <form class="form-order">
+                       <div class="form-group">
+                           <label for="">
+                               <h4>Hình thức giao hàng</h4>
+                           </label>
+                           <div class="order-type">
+                               <input class="form-input" type="radio" name="order-type" value="save" />
+                               <span>Giao hàng tiết kiệm</span>
+                           </div>
+                           <div class="order-type">
+                               <input class="form-input" type="radio" name="order-type" value="quick" />
+                               <span>Giao hàng nhanh</span>
+                           </div>
+                           <div class="order-type">
+                               <input class="form-input" type="radio" name="order-type" value="normal" />
+                               <span>Bình thường</span>
+                           </div>
+                           <br>
+                           <span class="message-error"></span>
+                       </div>
+                       <div class="form-group">
+                           <label for="">
+                               <h4>Địa chỉ giao hàng</h4>
+                           </label>
+                           <input type="radio" name="option" id="disableInput" onclick="toggleInput(false)">
+                           <label for="disableInput">Địa chỉ mặc định</label>
+                           <input type="radio" name="option" id="enableInput" onclick="toggleInput(true)">
+                           <label for="enableInput">Địa chỉ mới</label>
+                           <br>
+                           <input class="form-input" id="diachi" type="text" name="address">
+                           <br>
+                           <span class="message-error"></span>
+                       </div>
+                       <div class="form-group">
+                           <label for="">
+                               <h4>Tên người nhận</h4>
+                           </label>
+                           <input class="form-input" type="text" name="name">
+                           <br>
+                           <span class="message-error"></span>
+                       </div>
+                       <div class="form-group">
+                           <label for="">
+                               <h4>Số điện thoại</h4>
+                           </label>
+                           <input class="form-input " id="sdt" type="text" name="phone">
+                           <br>
+                           <span class="message-error"></span>
+                       </div>
+                       <div class="submit"><button>ĐẶT MUA</button></div>
+                   </form>
+
+               </div>
+           </div>
+       </div>
+
+       <footer id="footer">
+           <div class="customer-support">
+               <h3>Hỗ trợ khách hàng</h3>
+               <p>Hotline: 083388833</p>
+               <p>(Tổng đài hỗ trợ 24/24, phí gọi 1000đ/phút)</p>
+           </div>
+       </footer>
+       <script src="./src/order.js"></script>
+       <script>
+           document.addEventListener("DOMContentLoaded", function () {
+               function handleLinkClick(link) {
+                   const typeproductValue = link.getAttribute("typeproduct");
+                   window.location.href = "./index.html?typeproduct=" + encodeURIComponent(typeproductValue);
+               }
+               function handleSearchLinkClick(event) {
+                   event.preventDefault();
+                   const searchInput = document.querySelector(".search-ip");
+                   const searchText = searchInput.value.trim();
+                   window.location.href = `./index.html?search=${encodeURIComponent(searchText)}`;
+               }
+               const proInfoLinks = document.querySelectorAll("[typeproduct]");
+               const searchLink = document.querySelector(".search a");
+
+               proInfoLinks.forEach(function (link) {
+                   link.addEventListener("click", function (event) {
+                       event.preventDefault();
+                       handleLinkClick(link);
+                   });
+               });
+               if (searchLink) {
+                   searchLink.addEventListener("click", handleSearchLinkClick);
+               }
+           });
+       </script>
+   </body>
+</html>
