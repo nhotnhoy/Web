@@ -44,7 +44,16 @@
       <script>
          const $ = document.querySelector.bind(document);
          const $$ = document.querySelectorAll.bind(document);
-         let users = JSON.parse(localStorage.getItem("myUsers"));
+         let users = localStorage.getItem('myUsers') ? JSON.parse(localStorage.getItem('myUsers')) : [{
+             email: "congty@gmail.com",
+             password: "12345678",
+             phone: "0142125671",
+             location: "Ninh Bình",
+             typeUser: "admin",
+             status: "none",
+         }
+         ];
+         let loginUser = JSON.parse(localStorage.getItem('loginUser'))
          
          Validator({
             form: ".form-content",
